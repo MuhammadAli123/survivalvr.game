@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login form</title>
+  <script src="https://s.codepen.io/assets/libs/modernizr.js"> </script>
+
+<link href='https://fonts.googleapis.com/css?family=Raleway:300,200' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+  <!-- Survival vr logo-->
+  <img id="img1" src="img/survivalvr.png" alt="Survival Vr logo"  height="200" width="800"/>  
+<!-- <button id="findpass">What's the password?</button>  this btn is showing password-->
+<div class="form">
+  <div class="forceColor"></div>
+  <div class="topbar">
+    <div class="spanColor"></div>
+	<input type="text" class="input" id="username" placeholder="Username" />
+    <input type="password" class="input" id="password" placeholder="Password" />
+  </div>
+  <button class="submit" id="submit">Login</button>
+</div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+   <!-- <script src="js/script.js"></script>  --> 
+   
+   <script>
+   
+
+
+var btn = $('#submit');
+var form = $('.form');
+var topbar = $('.topbar');
+var input = $('#password', '#username');
+var article = ('new.html');
+var tries = 0;
+
+input.on('focus', function () {
+   topbar.removeClass('error success');
+   input.text('');
+});
+
+btn.on('click', function () {
+  if(tries<=2){
+    var username = $('#username').val();
+	var pass = $('#password').val();
+	console.log(username);
+    console.log(pass);
+    if(username==='SEP#17' && pass==='survivalvr'){
+    setTimeout(function(){
+      btn.text('Success!');
+	  
+    },250);
+    topbar.addClass('success');
+    form.addClass('goAway');
+    window.open('intro.html');
+  //  article.addClass('active');
+    tries=0;
+  }
+    else{
+      topbar.addClass('error');
+      tries++;
+      switch(tries){
+        case 0:
+          btn.text('Login');
+          break;
+        case 1:
+          setTimeout(function(){
+          btn.text('You have 2 tries left');
+          },300);
+          break;
+        case 2:
+          setTimeout(function(){
+          btn.text('Only 1 more');
+          },300);
+          break;
+        case 3:
+          setTimeout(function(){
+          btn.text('Recover password?');
+          },300);
+          input.prop('disabled',true);
+          topbar.removeClass('error');
+          input.addClass('disabled');
+          btn.addClass('recover');
+          break;
+         defaut:
+          btn.text('Login');
+          break;
+      }
+    } 
+  }
+  else{
+    topbar.addClass('disabled');
+  }
+  
+});
+
+$('.form').keypress(function(e){
+   if(e.keyCode==13)
+   submit.click();
+});
+input.keypress(function(){
+  topbar.removeClass('success error');
+});
+   </script>
+</body>
+</html>
